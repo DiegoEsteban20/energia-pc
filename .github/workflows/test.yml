@@ -1,0 +1,21 @@
+name: Pruebas en Windows
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar calculos y persistencia
+        shell: powershell
+        run: ./tests/Test-Core.ps1
+      - name: Validar sintaxis de la aplicacion
+        shell: powershell
+        run: |
+          $tokens = $null
+          $errors = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'EnergiaPC.ps1'), [ref]$tokens, [ref]$errors)
+          if ($errors.Count) { throw ($errors | Out-String) }

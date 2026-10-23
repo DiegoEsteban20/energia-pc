@@ -1,0 +1,9 @@
+# Los datos personales se guardan fuera del repositorio en LOCALAPPDATA.
+datos/
+config.json
+historial.json*
+*.csv
+*.tmp
+*.bak
+*.zip
+test-results/
